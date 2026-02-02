@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Römische Spuren in Deutschland</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* ---------------- HEADER ---------------- */
+
+        .custom-header {
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: center;
+
+            /* Hintergrundbild */
+            background-image: url('bild_header.jpeg');
+            background-size: cover;
+            background-position: center 94%;
+
+
+        }
+
+.custom-header-title {
+    font-family: "Times New Roman", serif;
+    font-size: 2.8rem;
+    font-weight: 600;
+    color: #222;
+    background: rgba(242, 242, 242, 0.9);
+    padding: 7px 25px;
+    display: inline-block;
+    border-radius: 4px;
+     border: 2px solid black;
+
+    /* NEU: mehr Abstand nach unten */
+	margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+        /* Kontaktbutton oben rechts */
+        .header-contact {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            border: 2px solid white;
+            background-color: black;
+            color: white;
+            border-radius: 0;
+            padding: 10px 26px;
+  	    font-family: "Times New Roman", serif;
+            font-size: 1.05rem;
+            font-weight: 500;
+            text-decoration: none;
+            z-index: 10;
+        }
+
+        .header-contact:hover {
+            background-color: white;
+            color: black;
+        }
+
+        /* Pills unter dem Titel */
+        .pill-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+.nav-pill {
+    font-family: "Times New Roman", serif;
+    font-size: 1rem;
+    padding: 6px 18px;
+    border-radius: 50px;
+    white-space: nowrap;
+
+    background: rgba(242, 242, 242, 0.9); /* gleiches Hellgrau wie Titelbox */
+    border: 2px solid black;              /* gleicher schwarzer Rahmen */
+    color: #222 !important;               /* dunkler Text, passend zur Box */
+
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.nav-pill:hover {
+    background: rgba(255, 255, 255, 1);   /* etwas heller beim Hover */
+}
+
+        /* ---------------- SLIDESHOW ---------------- */
+
+        .hero {
+            position: relative;
+            height: 60vh;
+            overflow: hidden;
+        }
+
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            animation: fade 18s infinite;
+        }
+
+        .hero img:nth-child(2) { animation-delay: 6s; }
+        .hero img:nth-child(3) { animation-delay: 12s; }
+
+        @keyframes fade {
+            0% {opacity: 1;}
+            33% {opacity: 1;}
+            40% {opacity: 0;}
+            93% {opacity: 0;}
+            100% {opacity: 1;}
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-shadow: 0 0 10px black;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ---------------- NAVIGATION / HEADER ---------------- -->
+
+<nav class="custom-header navbar-dark">
+    <!-- Kontaktbutton -->
+    <a href="kontakt.html" class="header-contact">Kontakt</a>
+
+    <!-- Titel -->
+    <div class="custom-header-title">
+           Römische Spuren in Deutschland   
+    </div>
+
+    <!-- Pills unter dem Titel -->
+    <div class="pill-row">
+        <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
+        <a class="nav-pill" href="sl.html">Saarland</a>
+        <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
+        <a class="nav-pill" href="bayern.html">Bayern</a>
+    </div>
+</nav>
+
+
+<!-- ---------------- EINLEITUNG ---------------- -->
+
+<div class="container my-5">
+    <h2 style="text-align: center;" class="mb-4">Begeben Sie sich auf Entdeckungstour!</h2>
+
+    <p style="text-align: center;">
+        Römische Geschichte begegnet uns in Deutschland an vielen Orten – manchmal gut sichtbar, manchmal verborgen im Gelände. </br>
+ Diese Website widmet sich ausgewählten Fundplätzen, die im Rahmen archäologischer Exkursionen besucht und dokumentiert wurden.
+        Ziel ist es, die materiellen Hinterlassenschaften der römischen Präsenz nördlich der Alpen speziell in den verschiedenen Bundesländern Deutschlands vorzustellen und ihre historische
+        Einordnung nachvollziehbar zu machen.
+
+</p>
+ <p style="text-align: center;">
+        Die hier präsentierten Orte bieten Einblicke in verschiedene Bereiche des römischen Lebens – von Militär- und Grenzanlagen
+        bis hin zu zivilen Siedlungsstrukturen und Aspekten der materiellen Kultur. Ergänzend finden sich Karten, Bildmaterial und
+        weiterführende Hinweise, die die archäologische Bedeutung dieser Fundplätze im größeren Kontext der römischen Provinzen verorten.
+    </p>
+</div>
+
+<!-- ---------------- SLIDESHOW ---------------- -->
+
+<div class="hero">
+    <img src="img/slide1.jpg" alt="">
+    <img src="img/slide2.jpg" alt="">
+    <img src="img/slide3.jpg" alt="">
+
+    <div class="hero-text">
+        <h1>Auf den Spuren der Römer in Deutschland</h1>
+    </div>
+</div>
+
+</body>
+</html>
