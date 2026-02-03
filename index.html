@@ -9,38 +9,61 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+
+        /* ---------------- GLOBAL TYPOGRAPHY ---------------- */
+
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 1.15rem;
+            color: #222;
+        }
+
+        h1, h2, h3{
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            color: #111;
+            text-align: center;
+        }
+
+
+        h2 { font-size: 2rem; margin-top: 60px; margin-bottom: 25px;}
+        h3 { font-size: 1.6rem; }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.55;
+            margin-bottom: 1.1rem;
+            text-align: center;
+        }
+
+        .carousel-caption p {
+            font-size: 1.15rem !important;
+        }
+
         /* ---------------- HEADER ---------------- */
 
         .custom-header {
             padding: 40px 0 45px 0;
             position: relative;
             text-align: center;
-
-            /* Hintergrundbild */
             background-image: url('bild_header.jpeg');
             background-size: cover;
             background-position: center 94%;
-
-
         }
 
-.custom-header-title {
-    font-family: "Times New Roman", serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: #222;
-    background: rgba(242, 242, 242, 0.9);
-    padding: 7px 25px;
-    display: inline-block;
-    border-radius: 4px;
-     border: 2px solid black;
+        .custom-header-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #222;
+            background: rgba(242, 242, 242, 0.9);
+            padding: 7px 25px;
+            display: inline-block;
+            border-radius: 4px;
+            border: 2px solid black;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
 
-    /* NEU: mehr Abstand nach unten */
-	margin-top: 60px;
-    margin-bottom: 30px;
-}
-
-        /* Kontaktbutton oben rechts */
         .header-contact {
             position: absolute;
             top: 15px;
@@ -48,13 +71,9 @@
             border: 2px solid white;
             background-color: black;
             color: white;
-            border-radius: 0;
             padding: 10px 26px;
-  	    font-family: "Times New Roman", serif;
             font-size: 1.05rem;
-            font-weight: 500;
             text-decoration: none;
-            z-index: 10;
         }
 
         .header-contact:hover {
@@ -62,7 +81,6 @@
             color: black;
         }
 
-        /* Pills unter dem Titel */
         .pill-row {
             display: flex;
             justify-content: center;
@@ -70,120 +88,219 @@
             flex-wrap: wrap;
         }
 
-.nav-pill {
-    font-family: "Times New Roman", serif;
-    font-size: 1rem;
-    padding: 6px 18px;
-    border-radius: 50px;
-    white-space: nowrap;
-
-    background: rgba(242, 242, 242, 0.9); /* gleiches Hellgrau wie Titelbox */
-    border: 2px solid black;              /* gleicher schwarzer Rahmen */
-    color: #222 !important;               /* dunkler Text, passend zur Box */
-
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.nav-pill:hover {
-    background: rgba(255, 255, 255, 1);   /* etwas heller beim Hover */
-}
-
-        /* ---------------- SLIDESHOW ---------------- */
-
-        .hero {
-            position: relative;
-            height: 60vh;
-            overflow: hidden;
+        .nav-pill {
+            font-size: 1.05rem;
+            padding: 6px 18px;
+            border-radius: 50px;
+            background: rgba(242, 242, 242, 0.9);
+            border: 2px solid black;
+            color: #222 !important;
+            text-decoration: none;
+            transition: 0.2s;
         }
 
-        .hero img {
+        .nav-pill:hover {
+            background: white;
+        }
+
+        .header-divider {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            animation: fade 18s infinite;
+            height: 14px;
+            background-color: #003366;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        .hero img:nth-child(2) { animation-delay: 6s; }
-        .hero img:nth-child(3) { animation-delay: 12s; }
-
-        @keyframes fade {
-            0% {opacity: 1;}
-            33% {opacity: 1;}
-            40% {opacity: 0;}
-            93% {opacity: 0;}
-            100% {opacity: 1;}
-        }
-
-        .hero-text {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            text-shadow: 0 0 10px black;
-            text-align: center;
-        }
     </style>
 </head>
 
 <body>
 
-<!-- ---------------- NAVIGATION / HEADER ---------------- -->
+<!-- ---------------- HEADER ---------------- -->
 
 <nav class="custom-header navbar-dark">
-    <!-- Kontaktbutton -->
-    <a href="kontakt.html" class="header-contact">Kontakt</a>
+    <a href="kontakt.html" class="header-contact">Hintergrund</a>
 
-    <!-- Titel -->
-    <div class="custom-header-title">
-           Römische Spuren in Deutschland   
-    </div>
 
-    <!-- Pills unter dem Titel -->
+    <a href="index.html" class="custom-header-title" style="text-decoration: none; color: inherit;">
+        Römische Spuren in Deutschland
+    </a>
+
     <div class="pill-row">
         <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
-        <a class="nav-pill" href="sl.html">Saarland</a>
         <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
         <a class="nav-pill" href="bayern.html">Bayern</a>
     </div>
 </nav>
 
+<div class="header-divider"></div>
 
 <!-- ---------------- EINLEITUNG ---------------- -->
 
 <div class="container my-5">
-    <h2 style="text-align: center;" class="mb-4">Begeben Sie sich auf Entdeckungstour!</h2>
 
-    <p style="text-align: center;"     font-family: "Times New Roman", serif;>
-        Römische Geschichte begegnet uns in Deutschland an vielen Orten – manchmal gut sichtbar, manchmal verborgen im Gelände. </br>
- Diese Website widmet sich ausgewählten Fundplätzen, die im Rahmen archäologischer Exkursionen besucht und dokumentiert wurden.
-        Ziel ist es, die materiellen Hinterlassenschaften der römischen Präsenz nördlich der Alpen speziell in den verschiedenen Bundesländern Deutschlands vorzustellen und ihre historische
+    <h2>Ein digitaler Exkursionsführer zu römischen Fundplätzen</h2>
+
+    <p>
+        Römische Geschichte begegnet uns in Deutschland an vielen Orten – manchmal gut sichtbar, manchmal verborgen im Gelände.</br>
+        Diese Website widmet sich ausgewählten Fundplätzen, die im Rahmen archäologischer Exkursionen besucht und dokumentiert wurden.</br>
+        Ziel ist es, die materiellen Hinterlassenschaften der römischen Präsenz nördlich der Alpen vorzustellen und ihre historische
         Einordnung nachvollziehbar zu machen.
-
-</p>
- <p style="text-align: center;">
         Die hier präsentierten Orte bieten Einblicke in verschiedene Bereiche des römischen Lebens – von Militär- und Grenzanlagen
         bis hin zu zivilen Siedlungsstrukturen und Aspekten der materiellen Kultur. Ergänzend finden sich Karten, Bildmaterial und
         weiterführende Hinweise, die die archäologische Bedeutung dieser Fundplätze im größeren Kontext der römischen Provinzen verorten.
     </p>
-</div>
-<div style="display: flex; justify-content: center; margin: 40px 0;">
-<iframe width="760" height="515" src="https://www.youtube.com/embed/waIPzDReW6E?si=zXRbVOUfjom2WjJ3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 </div>
 
 <!-- ---------------- SLIDESHOW ---------------- -->
 
-<div class="hero">
-    <img src="img/slide1.jpg" alt="">
-    <img src="img/slide2.jpg" alt="">
-    <img src="img/slide3.jpg" alt="">
+<div class="container my-5">
 
-    <div class="hero-text">
-        <h1>Auf den Spuren der Römer in Deutschland</h1>
+    <h2>Impressionen der Exkursionsorte</h2>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+        </div>
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img src="https://loveincorporated.blob.core.windows.net/contentimages/largesize/629f4aa3-24c5-4d73-84c0-f5fc0737d470-24-the-most-valuable-roman-treasure-finds-of-all-time.jpg"
+                     class="d-block w-100" style="height:600px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block"
+                     style="background: rgba(0,0,0,0.55); padding: 10px; border-radius: 6px;">
+                    <p>Wertvolle römische Schatzfunde – ein Blick in die materielle Kultur</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="https://img.br.de/3e5f58f1-5b02-4b0d-b969-557ed93892b4.jpeg?q=85&rect=0%2C35%2C1024%2C576&w=1024"
+                     class="d-block w-100" style="height:600px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block"
+                     style="background: rgba(0,0,0,0.55); padding: 10px; border-radius: 6px;">
+                    <p>Römische Architekturfragmente – Zeugnisse urbaner Strukturen</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="https://img.br.de/c8327dba-6a4d-4881-b94f-46aea880b059.jpeg?q=85&rect=0%2C0%2C1276%2C719&w=1024"
+                     class="d-block w-100" style="height:600px; object-fit:cover;">
+                <div class="carousel-caption d-none d-md-block"
+                     style="background: rgba(0,0,0,0.55); padding: 10px; border-radius: 6px;">
+                    <p>Militärische Infrastruktur – Kastelle und Grenzanlagen</p>
+                </div>
+            </div>
+
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
     </div>
+
 </div>
+
+<!-- ---------------- VIDEO ---------------- -->
+
+<h2>Einführendes Video</h2>
+
+<p style="max-width: 1000px; margin: 0 auto;">
+    Das folgende Video von „Das Römische Reich in 100 Sekunden“ bietet einen kompakten Überblick über die römische Präsenz
+    im Gebiet des heutigen Deutschlands. Es dient als ergänzende Einführung in die Thematik dieser Seite.
+</p>
+
+<div style="display: flex; justify-content: center; margin: 40px 0;">
+    <iframe width="760" height="515"
+            src="https://www.youtube.com/embed/waIPzDReW6E?si=zXRbVOUfjom2WjJ3"
+            frameborder="0" allowfullscreen></iframe>
+</div>
+
+<!-- ---------------- FOOTER ---------------- -->
+
+<!-- Footer -->
+  
+<footer class="py-3 mt-5" style="background-color:#003366; color:white;">
+  <div class="container">
+    <div class="row align-items-center text-white">
+
+      <!-- MITTLERE SPALTE (jetzt links) -->
+      <div class="col-md-4 text-center mb-3 mb-md-0" style="margin-top: 0;  padding-rigt: 400px;">
+        <h5 class="fw-semibold" style="font-size: 1.25rem; margin: 0 ">
+          Rechtliches
+        </h5>
+
+        <a href="imprint.html" class="text-white"
+           style="text-decoration:none; font-size:1.1rem; margin: 0 0 6px 0; white-space: nowrap;">
+          Impressum & Datenschutz
+        </a>
+      </div>
+
+      <!-- LINKE SPALTE (jetzt in der Mitte) -->
+      <div class="col-md-4 text-center">
+        <h5 class="fw-semibold" style="font-size: 1.3rem; margin: 0;">
+          Römische Spuren in Deutschland
+        </h5>
+
+        <h6 style="font-size: 1.1rem; margin: 4px;">
+          Ein digitaler Exkursionsführer </br> zu römischen Fundplätzen
+        </h6>
+
+        <span style="font-size: 0.9rem;">
+          © 2026 – Alle Rechte vorbehalten.
+        </span>
+      </div>
+
+      <!-- Rechte Spalte bleibt unverändert -->
+      <div class="col-md-4 text-md-end text-center" style="margin-top: 0;">
+
+        <div style="display: inline-flex; align-items: center; gap: 12px;">
+
+          <div style="text-align: center;">
+
+            <div style="font-size: 1.15rem; margin-bottom: 6px;">
+              Sie haben Fragen?
+            </div>
+
+            <a href="kontakt.html"
+               style="
+                 display: inline-block;
+                 padding: 10px 28px;
+                 border: 2px solid white;
+                 color: white;
+                 text-decoration: none;
+                 border-radius: 4px;
+                 font-size: 1.1rem;
+                 transition: 0.2s;
+               "
+               onmouseover="this.style.backgroundColor='white'; this.style.color='#003366';"
+               onmouseout="this.style.backgroundColor='transparent'; this.style.color='white';">
+              Kontakt
+            </a>
+          </div>
+
+          <div style="font-size: 2.2rem; line-height: 1;">
+            🦊
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+</body>
+</html><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
