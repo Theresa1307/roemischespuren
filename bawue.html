@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -6,64 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Römische Spuren in Deutschland</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-    <style>
-        /* ---------------- HEADER ---------------- */
+  <style>
+
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 1.15rem;
+            color: #222;
+        }
+
+        h1, h2, h3{
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            color: #111;
+            text-align: center;
+        }
+
+	h1 { font-size: 2.5rem; margin-top: 60px; margin-bottom: 25px;}
+        h2 { font-size: 2rem; margin-top: 60px; margin-bottom: 25px;}
+        h3 { font-size: 1.6rem; }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.55;
+            margin-bottom: 1.1rem;
+            text-align: center;
+        }
 
         .custom-header {
             padding: 40px 0 45px 0;
             position: relative;
             text-align: center;
-
-            /* Hintergrundbild */
             background-image: url('bild_header.jpeg');
             background-size: cover;
             background-position: center 94%;
-
-
         }
 
-.custom-header-title {
-    font-family: "Times New Roman", serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: #222;
-    background: rgba(242, 242, 242, 0.9);
-    padding: 7px 25px;
-    display: inline-block;
-    border-radius: 4px;
-     border: 2px solid black;
+        .custom-header-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #222;
+            background: rgba(242, 242, 242, 0.9);
+            padding: 7px 25px;
+            display: inline-block;
+            border-radius: 4px;
+            border: 2px solid black;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
 
-    /* NEU: mehr Abstand nach unten */
-	margin-top: 60px;
-    margin-bottom: 30px;
-}
-
-        /* Kontaktbutton oben rechts */
-        .header-contact {
+        .header-context {
             position: absolute;
             top: 15px;
             right: 25px;
             border: 2px solid white;
             background-color: black;
             color: white;
-            border-radius: 0;
             padding: 10px 26px;
-  	    font-family: "Times New Roman", serif;
             font-size: 1.05rem;
-            font-weight: 500;
             text-decoration: none;
-            z-index: 10;
         }
 
-        .header-contact:hover {
+        .header-context:hover {
             background-color: white;
             color: black;
         }
 
-        /* Pills unter dem Titel */
         .pill-row {
             display: flex;
             justify-content: center;
@@ -71,89 +80,572 @@
             flex-wrap: wrap;
         }
 
-.nav-pill {
-    font-family: "Times New Roman", serif;
-    font-size: 1rem;
-    padding: 6px 18px;
-    border-radius: 50px;
-    white-space: nowrap;
-
-    background: rgba(242, 242, 242, 0.9); /* gleiches Hellgrau wie Titelbox */
-    border: 2px solid black;              /* gleicher schwarzer Rahmen */
-    color: #222 !important;               /* dunkler Text, passend zur Box */
-
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.nav-pill:hover {
-    background: rgba(255, 255, 255, 1);   /* etwas heller beim Hover */
-}
-
-        /* ---------------- SLIDESHOW ---------------- */
-
-        .hero {
-            position: relative;
-            height: 60vh;
-            overflow: hidden;
+        .nav-pill {
+            font-size: 1.05rem;
+            padding: 6px 18px;
+            border-radius: 50px;
+            background: rgba(242, 242, 242, 0.9);
+            border: 2px solid black;
+            color: #222 !important;
+            text-decoration: none;
+            transition: 0.2s;
         }
 
-        .hero img {
+        .nav-pill:hover {
+            background: white;
+        }
+
+        .header-divider {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            animation: fade 18s infinite;
+            height: 14px;
+            background-color: #003366;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        .hero img:nth-child(2) { animation-delay: 6s; }
-        .hero img:nth-child(3) { animation-delay: 12s; }
-
-        @keyframes fade {
-            0% {opacity: 1;}
-            33% {opacity: 1;}
-            40% {opacity: 0;}
-            93% {opacity: 0;}
-            100% {opacity: 1;}
-        }
-
-        .hero-text {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            text-shadow: 0 0 10px black;
-            text-align: center;
+        #map {
+            height: 500px;
+            margin-top: 50px ;
+	    margin-bottom: 15px ;
+            border: 2px solid #aaa;
+            border-radius: 4px;
         }
     </style>
 </head>
 
+
+<!-- Header --> 
+
 <body>
 
-<!-- ---------------- NAVIGATION / HEADER ---------------- -->
+ <nav class="custom-header navbar-dark">
+    <a href="hintergrund.html" class="header-context">Hintergrund</a>
 
-<nav class="custom-header navbar-dark">
-    <!-- Kontaktbutton -->
-    <a href="kontakt.html" class="header-contact">Kontakt</a>
 
-    <!-- Titel -->
-    <div class="custom-header-title">
-           Römische Spuren in Deutschland   
-    </div>
+    <a href="index.html" class="custom-header-title" style="text-decoration: none; color: inherit;">
+        Römische Spuren in Deutschland
+    </a>
 
-    <!-- Pills unter dem Titel -->
     <div class="pill-row">
-        <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
-        <a class="nav-pill" href="sl.html">Saarland</a>
-        <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
         <a class="nav-pill" href="bayern.html">Bayern</a>
+        <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
+        <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
     </div>
-</nav>
+ </nav>
+
+<div class="header-divider"></div>
 
 
-<!-- ---------------- EINLEITUNG ---------------- -->
 
+<!-- Inhalt -->
+
+
+<div class="container my-5">
+
+    <h1>Limes-Exkursion in Baden-Württemberg</h1>
+
+    <p>
+        Im Rahmen des Geländeseminars „Zwischen den Grenzen - Der römische Limes zwischen 
+Wissenschaft, Denkmalpflege und Vermittlung“ unter Leitung von Andreas Schaflitzl, M.A. 
+führte die Professur für „Archäologie der Römischen Provinzen“ der Otto-Friedrich Universität Bamberg am                
+09. sowie 16. November 2024 Exkursionstage zum baden-württembergischen Limes durch. 
+Anhand von Standortbesichtigungen unter der Führung des Lehrbeauftragten sollten wir vor 
+Ort einen Einblick in die Vermittlungskonzepte und Erhaltungsbedingungen der UNESCO
+Welterbestätte Limes erhalten. Im Folgenden soll nun ein Überblick darüber dargestellt werden. 
+    </p>
+
+</div>
+<div class="container my-4">
+
+    <h3 class="mt-5">Exkursionsablauf</h3>
+
+    <table class="table table-striped table-bordered mt-3;">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Datum</th>
+                <th scope="col">Standort</th>
+                <th scope="col">Kurzbeschreibung</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>09.11.2024</td>
+                <td>Aalen</td>
+                <td>Limesmuseum mit Außengelände über dem ehemaligen römischen Reiterkastell.</td>
+            </tr>
+            <tr>
+                <td>09.11.2024</td>
+                <td>Waldgebiet bei Rainau</td>
+                <td>Überreste eines römischen Wachtturms mit Rekonstruktionsbau.</td>
+            </tr>
+            <tr>
+                <td>09.11.2024</td>
+                <td>Rainau-Buch</td>
+                <td>Grundrisse des römischen Kastells und des anschließenden Vicus.</td>
+            </tr>
+            <tr>
+                <td>09.11.2024</td>
+                <td>Dalkingen</td>
+                <td>Schutzbau über den überresten des einstigen Limestors mit Visualisiserung.</td>
+            </tr>
+            <tr>
+                <td>16.11.2024</td>
+                <td>Wald bei Hergenstadt</td>
+                <td>Limeswall und Grabenanlagen im Wald sichtbar.</td>
+            </tr>
+	    <tr>
+                <td>16.11.2024</td>
+                <td>Osterburken</td>
+                <td>Limespark mit rekonstruiertem Wachtturm.</td>
+            </tr>
+	    <tr>
+                <td>16.11.2024</td>
+                <td>Wald bei Hettingen</td>
+                <td>Aufgemauerter Grundriss des Kleinkastells Hönehaus.</td>
+            </tr>
+	    <tr>
+                <td>16.11.2024</td>
+                <td>Walldürn</td>
+                <td>Aufgemauerter Grundriss des Bades des Kleinkastells Alteburg.</td>
+            </tr>
+	    <tr>
+                <td>16.11.2024</td>
+                <td>Nähe Osterburken</td>
+                <td>"Limes im Barnholz" mit einem Teilstück einer rekonstruierten Holzpalisade und unweit davon entfernt dem aufgemauertem Grundriss eines Wachtturms.</td>
+            </tr>
+	    <tr>
+                <td>16.11.2024</td>
+                <td>Osterburken</td>
+                <td>Teilrekonstruktion der Mauern des Annexkastells.</td>
+            </tr>
+	    <tr>
+                <td>16.11.2024</td>
+                <td>Osterburken</td>
+                <td>Römermuseum und darüber erreichbar die Überreste mit Teilrekonstruktion des Kastellbades.</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2>Überblickskarte der besuchten Standorte</h2>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    var map = L.map('map').setView([49.5, 9.8], 8);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+    L.marker([48.836306, 10.084049]).addTo(map)
+        .bindPopup('<b>Limesmuseum Aalen</b>');
+
+    L.marker([48.915776, 10.130848]).addTo(map)
+        .bindPopup('<b>Limeswachtturm bei Rainau</b>');
+
+    L.marker([48.910094, 10.148478]).addTo(map)
+  	.bindPopup('<b>Rainau-Buch Kastellvicus</b>');
+
+    L.marker([48.92691, 10.155624]).addTo(map)
+        .bindPopup('<b>Limestor Dalkingen</b>');
+
+    L.marker([49.396288, 9.44337]).addTo(map)
+        .bindPopup('<b>Hergenstadt Limeswall</b>');
+
+    L.marker([49.419555, 9.43327]).addTo(map)
+  	.bindPopup('<b>Wachtturm Osterburken</b>');
+
+    L.marker([49.542868, 9.38755]).addTo(map)
+  	.bindPopup('<b>Kleinkastell Hönehaus</b>');
+
+    L.marker([49.579221, 9.385112]).addTo(map)
+ 	.bindPopup('<b>Kastellbad Walldürn</b>');
+
+    L.marker([49.446861, 9.426047]).addTo(map)
+  	.bindPopup('<b>Holzpalisade "Limes im Barnholz"</b>');
+
+    L.marker([49.450619, 9.422985]).addTo(map)
+ 	.bindPopup('<b>Wachtturm "Limes im Barnholz"</b>');
+
+    L.marker([49.426589, 9.424753]).addTo(map)
+ 	.bindPopup('<b>Osterburken Annexkastell</b>');  
+
+    L.marker([49.429646, 9.425834]).addTo(map)
+ 	.bindPopup('<b>Osterburken Römermuseum</b>');
+    
+</script>
+
+<p> Für die Standortinfo bitte auf den jeweiligen Marker klicken!</p>
+
+<div class="container my-5">
+
+    <h2> Die Exkursion im Detail </h2>
+
+    <p>
+      Am Samstag, den 09. November ging es mit dem Bus los nach Aalen, wo wir gegen kurz nac 11 Uhr am Limesmuseum ankamen. Das Museumsareal umfasst das Gelände des damaligen Reiterkastells von Aalen und ist mehrere Hektar groß. Vorne am Haupteingang fanden wir die ersten sichtbargemachten Strukturen des Kastells– die porta principales sinistra. Die Ausstellung des Museum erstreckt sich über zwei Stockwerke. Im Erdgeschoss werden dabei anhand von umfassendem Fundmaterial Informationen zum Limes, Kastellen sowie dem Leben in einem Kastellvicus vermittelt. Im Obergeschoss beschäftigt sich die Ausstellung mit spezifischen Standorten entlang der über 160 km langen Strecke des Obergermanisch-Raetischen Limes in Baden-Württemberg. Auf dem anschließenden Außengelände des Museums befindet sich eine Rekonstruktion einer Mannschaftsbaracke, die auf den Grabungsergebnissen des Kastells Heidenheim basiert. Der größte Teil des Außengeländes zeigt jedoch die in den 1980er Jahren freigelegte und anschließend teilrekonstruierte principia. 
+    </p>
+
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/aalen_museum.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Limesmuseum Aalen, vorne mit porta principales sinistra
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/aalen_museum_außengelände.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Blick auf die aufgemauerten Reste der principia des Kastells in Aalen
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>
+	Um 14 Uhr brachen wir zum nächsten Standort auf - dem Limes-Wachtturm bei Rainau. Im Wald befindet sich eine etwa drei Meter hohe Teilrekonstruktion 	der Steinmauer sowie die aufgemauerten Fundamente eines Wachtturms. Einige Meter weiter, auf freiem Feld neben dem Wald, liegt befindet sich 	dazugehörig ein 1:1 rekonstruierter hölzernen Wachtturm. Dieser wurde dem aktuellen Forschungsstand entsprechend ohne Galerie errichtet.
+    </p>
+</div>
+
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/rainau_limesturm.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                     Aufgemauerte Fundamentreste des römsichen Wachtturms von Rainau
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/rainau_wachturm_rek.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Rekonstruierter hölzerner Wachturm von Rainau
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>
+        Anschließend fuhren wir zum Kastell von Rainau-Buch, wo wir zunächst den dazugehörigen Vicus besichtigten. Direkt neben einem Stausee sind dort die 	aufgemauerten Fundamente der Therme sowie weiterer Gebäude der Siedlung zu sehen. Das Kastell selbst ist über einen kurzen Weg vom Vicus aus 	erreichbar, doch eine Bundesstraße trennt die beiden Standorte derart voneinander, dass das Kastell trotz Ausschilderung vergleichsweise wenig 	touristisch besucht wird. Die Umwehrung des Kastells wurde durch Bepflanzungen visualisiert, die Kastelltore wurden dabei durch Bäume hervorgehoben. 	In der Mitte des Geländes befindet sich ein Modell des ehemaligen Kastells und auf dem Boden sind durch Steine die Umrisse des Stabsgebäudes 	erkennbar. Im südlichen Bereich befindet sich zudem eine kurze Teilrekonstruktion der Mauer aus Stein.
+    </p>
+</div>
+
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/rainau_kastell.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                     Grundriss der principia des Kastells von Rainau-Buch, mit Blick nach Süden auf die teilrekonstruierte Mauer 
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/rainau_vicus-größer.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Aufgemauertes Fundament eines Vicus-Gebäudes von Rainau-Buch
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-6 text-center">
+            <figure>
+                <img src="img/dalkingen_limestor3.jpeg" class="img-fluid rounded"
+     		style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                     Schutzbau über dem Limestor von Dalkingen
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <p>
+                Zum Abschluss des Tages ging es für uns zum Limestor von Dalkingen. Besonders an diesem ist einerseits, dass die Fassade in Richtung des 		Imperiums (nach Raetien) zeigt und andererseits das ein solcher Befund bisher nur einmalig am Limes vorgefunden wurde. Das Tor selbst ist 		unter einem gläsernen Schutzbau konserviert. Der untere Bereich der Fassadenmauer sowie Teile der Steinbauphase des Tores sind 				teilrekonstruiert worden. Der obere Bereich der Fassadenmauer wird mittels Textilbahnen, die von der Decke herunterhängen, visualisiert. Des 		Weiteren sind die Holzbauphasen durch Stahlplatten auf dem Boden zu erkennen, die sich teilweise innerhalb des Schutzbaus, aber auch 			außerhalb davon befinden. 
+            </p>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-6">
+            <p>
+                Am 16. November, ging es nun erneut los – dieses Mal mit dem Ziel, wichtige Standorte rund um das Kastell Osterburken zu besuchen. Gegen 10 		Uhr erreichten wir unseren ersten Stopp. Mitten im Wald auf der Gemarkung der Gemeinde Hergenstadt sind mehrere hundert Meter des Limeswalls 		sowie dessen Graben erhalten. Dank eines besonderen Bewaldungskonzepts sind diese Strukturen gut sichtbar. Durch die gezielte Anpflanzung 		von Schattenbaumarten wird der Bewuchs unterhalb der Baumkronen eingeschränkt, was die Sichtbarkeit des Limes erheblich verbessert. 			Ebenfalls noch erhalten sind die Überreste eines Wachtturms. Aufgrund der starken Belaubung waren die steinernen Überreste jedoch kaum 			erkennbar. Lediglich die Höhenstruktur ließ die Form des Turms erahnen.
+            </p>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <figure>
+                <img src="img/hergenstadt_limeswall.jpeg" class="img-fluid rounded"
+                     style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Schutzbau über dem Limestor von Dalkingen
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <p>
+	Nach etwa einer halben Stunde setzten wir unsere Fahrt zum nächsten Standort fort – dem rekonstruierten Limeswachtturm des Limesparks Osterburken. 	Der Turm liegt etwa 90 Meter vom ursprünglichen Standort entfernt, um die noch erhaltenen Strukturen zu schützen. Anders als der Wachtturm in 	Rainau, den wir in der vorherigen Woche besichtigt hatten, wurde dieser Turm mit einer Galerie rekonstruiert. Der Bau besteht aus Beton, drei der 	Außenseiten wurden jedoch so gestaltet, dass das Gebäude wie ein Steinbau (mit rotem Fugenstrich) wirkt. Frontal ist eine Wall-Graben-Rekonstruktion 	erstellt worden.
+    </p>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6 mx-auto text-center">
+        <figure>
+            <img src="img/osterburken_wachturm.jpeg"
+                 class="img-fluid rounded"
+                 style="max-height: 500px; object-fit: cover;"
+                 alt="Limestor Dalkingen">
+            <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                Rekonstruktion des Wachtturms mit Wall und Graben 
+            </figcaption>
+        </figure>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-6 text-center">
+            <figure>
+                <img src="img/hönehaus_kastell.jpeg" class="img-fluid rounded"
+     		style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                     Aufgemauerte Umwehrung des Kleinkastells mit Blick zur Toröffnungen 
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <p>
+		Weiter ging es für uns zum Kleinkastell Hönehaus, das im Wald der Gemeinde Hettingen liegt. Die Umwehrung des Kastells, die nach den 			Ausgrabungen in den 1960er Jahren durchschnittlich 0,75 Meter hoch erhalten war, wurde dort auf ein einheitliches Niveau aufgemauert. 			Entsprechend war der Grundriss des Kastells gut erkennbar. Ein besonderer Fund der damaligen Ausgrabungen war ein kleines Votivhäuschen, das 		von einem Freigelassenen „den glücklichen Zufällen“ geweiht wurde.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>
+	Im Anschluss fuhren wir zum Kastell Alteburg von Walldürn. Das Kleinkastell selbst wurde nicht visualisiert, der Grundriss des Kastellbades hingegen 	ist durch eine Aufmauerung sichtbar. Auch das ursprünglich aus Holz errichtete apodyterium wurde mit Holzblöcken angedeutet, auf denen als Schutz 	vor Verwitterung Metallkappen angebracht wurden. In der Mitte steht zudem ein Weihestein an Fortuna. Im Bereich des tepidarium ist außerdem die 	Teilrekonstruktion einer Hypokaustanlage zu sehen.
+    </p>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/walldürn_kastell-größer.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Visualisierung des apodyteriums mit Holzblöcken 
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/walldürn_kastell.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Blick im Detail auf die Teilrekonstruktion des Kastellbades  
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>
+	Auf dem Weg nach Osterburken machten wir einen Zwischenstopp am sogenannten „Limes im „Barnholz“. Hier wurde ein kleines, nur wenige Meter langes 	Teilstück der hölzernen Palisade rekonstruiert. Herr Schaflitzl erläuterte uns, dass die Höhe dieser Rekonstruktion leider nicht korrekt dargestellt 	wurde. Einige Meter weiter im Wald ist außerdem der Limeswall auf etwa 200 m noch gut sichtbar und etwa 300 m entfernt besichtigten wir noch den 	aufgemauerten Grundriss des Wachtturms „Barnholz“.
+    </p>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/barnholz_palisade.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Palisadenrekonstruktion  
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/limes_barnholz_wachturm.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                       Visualisierung des Limeswachtturms 8/25 
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-6">
+            <p>
+                Gegen 14 Uhr erreichten wir Osterburken. Zunächst besichtigten wir dort das Annexkastell, das als Parkanlage geschützt mitten innerhalb der 		Ortschaft liegt. Die sichtbaren Mauerstrukturen gehören zu dessen Umwehrung und wurden Ende des 19. Jahrhunderts teilweise aufgemauert. Im 		nordwestlichen Bereich ist eine Stahlvisualisierung des Seitentors des angrenzenden Hauptkastells zu sehen, das Kastell selbst ist modern 		überbaut. Im Bereich der porta praetoria soll jedoch bald ein darüberstehendes Gebäude abgerissen werden und da der Bau nicht unterkellert 		ist, besteht hier eine große Chance, noch erhaltene Strukturen zu finden. 
+            </p>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <figure>
+                <img src="img/osterburken_kastell.jpeg" class="img-fluid rounded"
+                     style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Außenansicht der aufgemauerten Umwehrung des Annexkastells
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>
+	Weiter ging es für uns zu Fuß zum Römermuseums Osterburken. Im dortigen Erdgeschoss teilt sich die Ausstellung in zwei Bereiche. Symbolisch getrennt 	durch eine Linie, die den Limes repräsentiert, wird hier einerseits das Leben am Limes auf Seite des Römischen Reiches gezeigt und andererseits das 	Leben außerhalb. Über eine Treppe kommt man zudem nach oben in einen kleineren Raum, der sich der Glaubenswelt widmet. Des Weiteren gehört zum 	Museum auch ein Anbau, der sich mit dem Badewesen beschäftigt und die Überreste und Teilrekonstruktion eines Badegebäudes beherbergt. Im hinteren 	Bereich dieses Anbaus sind die Weihesteine des Beneficiarier-Weihebezirks ausgestellt, der sich unweit entfernt befand. Nach deren Besichtigung 	traten wir gegen 17:30 Uhr die Rückfahrt nach Bamberg an.
+    </p>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/osterburken_römermuseum.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                   Römermuseum in Osterburken 
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/osterburken_bad.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                        Rekonstruktion des Kastellbades, im Hintergrund sind die Weihesteine des   
+			Beneficiarier-Weihebezirks zu sehen  
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+
+    <h4> Weitere Informationen über das Thema:</h4>
+    
+    <ul>
+     <li><a href="https://www.limesmuseum.de/">Limesmuseum Aalen</a></li>
+     <li><a href="https://www.roemermuseum-osterburken.de">Römermuseum Osterburken</a></li>
+     <li><a href="https://www.liz-bw.de/">Limesinfozentrum Baden-Württemberg</a></li>
+    </ul>
+
+</div>
+
+
+<!------------------ FOOTER ------------------>
+  
+<footer class="py-3 mt-5" style="background-color:#003366; color:white;">
+  <div class="container">
+    <div class="row align-items-center text-white">
+
+<!-- Linke Spalte -->
+      <div class="col-md-4 text-center mb-3 mb-md-0" style="margin-top: 0;  padding-rigt: 400px;">
+
+        <h5 class="fw-semibold" style="font-size: 1.25rem; margin: 0 ">
+          Rechtliches
+        </h5>
+
+        <a href="imprint.html" class="text-white"
+           style="text-decoration:none; font-size:1.1rem; margin: 0 0 6px 0; white-space: nowrap;">
+          Impressum & Datenschutz
+        </a>
+
+        <span style="font-size: 0.9rem; display:block; margin-top: 6px;">
+          © 2026 theresa1307.github.io/roemischespuren </br> – Alle Rechte vorbehalten.
+        </span>
+
+      </div>
+
+<!-- Mittlere Spalte -->
+      <div class="col-md-4 text-center">
+
+        <h5 class="fw-semibold" style="font-size: 1.3rem; margin: 0;">
+          Römische Spuren in Deutschland
+        </h5>
+
+        <h6 style="font-size: 1.1rem; margin: 4px;">
+          Ein digitaler Exkursionsführer </br> zu römischen Fundplätzen
+        </h6>
+
+      </div>
+
+<!-- Rechte Spalte -->
+  <div class="col-md-4 text-md-end text-center" style="margin-top: 0;">
+    <div style="display: inline-flex; align-items: center; gap: 12px;">
+
+      <div style="text-align: center;">
+
+          <div style="font-size: 2.2rem; line-height: 1;">🦊</div>
+
+          <div style="font-size: 1.3rem; margin-bottom: 2px;">Fragen oder Anmerkungen?</div>
+
+	  <div style="font-size: 1.1rem; text-align: center;">Kontakt: tfuchs17(at)smail.uni-koeln.de</div>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
