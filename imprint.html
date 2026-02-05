@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Römische Spuren in Deutschland</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+    <style>
+
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 1.15rem;
+            color: #222;
+        }
+
+        h1, h2{
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            color: #111;
+            text-align: left;
+        }
+
+	h1 { font-size: 2.5rem; margin-top: 60px; margin-bottom: 25px;}
+        h2 { font-size: 2rem; margin-top: 60px; margin-bottom: 25px;}
+        h3 { font-size: 1.6rem; margin-top: 25px; margin-bottom: 25px; }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.55;
+            margin-bottom: 1.1rem;
+            text-align: left;
+        }
+
+        .carousel-caption p {
+            font-size: 1.15rem !important;
+        }
+
+        .custom-header {
+            padding: 40px 0 45px 0;
+            position: relative;
+            text-align: center;
+            background-image: url('bild_header.jpeg');
+            background-size: cover;
+            background-position: center 94%;
+        }
+
+        .custom-header-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #222;
+            background: rgba(242, 242, 242, 0.9);
+            padding: 7px 25px;
+            display: inline-block;
+            border-radius: 4px;
+            border: 2px solid black;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
+
+        .header-context {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            border: 2px solid white;
+            background-color: black;
+            color: white;
+            padding: 10px 26px;
+            font-size: 1.05rem;
+            text-decoration: none;
+        }
+
+        .header-context:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .pill-row {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill {
+            font-size: 1.05rem;
+            padding: 6px 18px;
+            border-radius: 50px;
+            background: rgba(242, 242, 242, 0.9);
+            border: 2px solid black;
+            color: #222 !important;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-pill:hover {
+            background: white;
+        }
+
+        .header-divider {
+            width: 100%;
+            height: 14px;
+            background-color: #003366;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        .content-wrapper {
+            max-width: 1100px;
+            margin: 40px auto 60px auto;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- ---------------- HEADER ---------------- -->
+
+<nav class="custom-header navbar-dark">
+    <a href="hintergrund.html" class="header-context">Hintergrund</a>
+
+    <a href="index.html" class="custom-header-title" style="text-decoration: none; color: inherit;">
+        Römische Spuren in Deutschland
+    </a>
+
+    <div class="pill-row">
+        <a class="nav-pill" href="bayern.html">Bayern</a>
+        <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
+        <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
+    </div>
+</nav>
+
+<div class="header-divider"></div>
+
+<div class="content-wrapper">
+
+    <h1>Impressum &amp; Datenschutzerklärung</h1>
+
+    <h2>Impressum</h2>
+
+    <p><strong>Verantwortlich für den Inhalt dieser Website:</strong><br>
+    Theresa Fuchs<br>
+    Köln, Nordrhein-Westpfalen<br>
+    Deutschland</p>
+
+    <p><strong>Kontakt:</strong><br> E-Mail: tfuchs17(at)smail.uni-koeln.de</p>
+
+    <p>Diese Website ist ein privates, nicht-kommerzielles Projekt und dient der Darstellung universitärer Exkursion sowie der dort vermittelten Lerninhalte. Es werden keine Waren oder Dienstleistungen angeboten.</p>
+
+    <h2>Haftungsausschluss</h2>
+
+    <h3>Inhaltliche Verantwortung</h3>
+
+    <p>Die auf dieser Website bereitgestellten Informationen basieren auf im Rahmen von universitären Exkursionen vermittelten Inhalten sowie auf Recherchen der teilnehmenden Studierenden. Trotz sorgfältiger Zusammenstellung kann keine Gewähr für die Richtigkeit, Vollständigkeit oder Aktualität der Angaben übernommen werden. Die Inhalte dienen ausschließlich Informationszwecken und sind nicht als zitierfähiges wissenschaftliches Material zu verstehen. Für vertiefende Recherchen wird empfohlen, die einschlägige Fachliteratur zu den jeweiligen Fundplätzen heranzuziehen.</p>
+
+    <h3>Haftung für externe Links</h3>
+
+    <p>Diese Website enthält Links zu externen Webseiten Dritter. Für deren Inhalte sind ausschließlich die jeweiligen Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung wurden die Seiten auf mögliche Rechtsverstöße überprüft; rechtswidrige Inhalte waren nicht erkennbar. Eine dauerhafte inhaltliche Kontrolle der verlinkten Seiten wird ohne konkrete Hinweise auf Rechtsverstöße nicht durchgeführt.</p>
+
+    <h2>Bilder und Urheberrecht</h2>
+
+    <p>Alle auf dieser Website verwendeten Fotografien stammen — sofern nicht anders gekennzeichnet — von der Betreiberin der Seite und wurden an öffentlich zugänglichen Orten aufgenommen. Die Bilder dürfen nicht ohne vorherige schriftliche Genehmigung weiterverwendet, vervielfältigt oder verbreitet werden.</p>
+
+    <p>Aus rechtlichen Gründen werden keine Fotografien aus musealen Innenräumen oder Ausstellungen veröffentlicht. Informationen zu den jeweiligen Museen können über die verlinkten Webseiten eingesehen werden.</p>
+
+    <h2>Datenschutzerklärung</h2>
+
+    <h3>1. Verantwortliche Stelle</h3>
+
+    <p>Verantwortlich für die Datenverarbeitung auf dieser Website ist die oben genannte Person.</p>
+
+    <h3>2. Eingebettete Inhalte (YouTube)</h3>
+
+    <p>Diese Website bindet ein Video der Plattform YouTube ein. Beim Aufruf einer Seite mit eingebettetem Video können Daten (z. B. IP-Adresse, technische Browserdaten, ggf. Cookies) an Google/YouTube übertragen werden.</p>
+
+    <h3>3. Cookies</h3>
+
+    <p>Es werden keine eigenen Cookies zu Analyse- oder Marketingzwecken gesetzt. Durch eingebettete Inhalte (z. B. YouTube) können jedoch Cookies von Drittanbietern gesetzt werden.</p>
+</div>
+
+
+<!------------------ FOOTER ------------------>
+  
+<footer class="py-3 mt-5" style="background-color:#003366; color:white;">
+  <div class="container">
+    <div class="row align-items-center text-white">
+
+<!-- Linke Spalte -->
+      <div class="col-md-4 text-center mb-3 mb-md-0" style="margin-top: 0;  padding-rigt: 400px;">
+
+        <h5 class="fw-semibold" style="font-size: 1.25rem; margin: 0 ">
+          Rechtliches
+        </h5>
+
+        <a href="imprint.html" class="text-white"
+           style="text-decoration:none; font-size:1.1rem; margin: 0 0 6px 0; white-space: nowrap;">
+          Impressum & Datenschutz
+        </a>
+
+        <span style="font-size: 0.9rem; display:block; margin-top: 6px;">
+          © 2026 theresa1307.github.io/roemischespuren </br> – Alle Rechte vorbehalten.
+        </span>
+
+      </div>
+
+<!-- Mittlere Spalte -->
+      <div class="col-md-4 text-center">
+
+        <h5 class="fw-semibold" style="font-size: 1.3rem; margin: 0;">
+          Römische Spuren in Deutschland
+        </h5>
+
+        <h6 style="font-size: 1.1rem; margin: 4px;">
+          Ein digitaler Exkursionsführer </br> zu römischen Fundplätzen
+        </h6>
+
+      </div>
+
+<!-- Rechte Spalte -->
+  <div class="col-md-4 text-md-end text-center" style="margin-top: 0;">
+    <div style="display: inline-flex; align-items: center; gap: 12px;">
+
+      <div style="text-align: center;">
+
+          <div style="font-size: 2.2rem; line-height: 1;">🦊</div>
+
+          <div style="font-size: 1.3rem; margin-bottom: 2px;">Fragen oder Anmerkungen?</div>
+
+	  <div style="font-size: 1.1rem; text-align: center;">Kontakt: tfuchs17(at)smail.uni-koeln.de</div>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
