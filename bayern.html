@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,64 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Römische Spuren in Deutschland</title>
 
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
-    <style>
-        /* ---------------- HEADER ---------------- */
+  <style>
+
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 1.15rem;
+            color: #222;
+        }
+
+        h1, h2, h3{
+            font-family: "Times New Roman", serif;
+            font-weight: bold;
+            color: #111;
+            text-align: center;
+        }
+
+	h1 { font-size: 2.5rem; margin-top: 60px; margin-bottom: 25px;}
+        h2 { font-size: 2rem; margin-top: 60px; margin-bottom: 25px;}
+        h3 { font-size: 1.6rem; }
+
+        p {
+            font-size: 1.2rem;
+            line-height: 1.55;
+            margin-bottom: 1.1rem;
+            text-align: center;
+        }
 
         .custom-header {
             padding: 40px 0 45px 0;
             position: relative;
             text-align: center;
-
-            /* Hintergrundbild */
             background-image: url('bild_header.jpeg');
             background-size: cover;
             background-position: center 94%;
-
-
         }
 
-.custom-header-title {
-    font-family: "Times New Roman", serif;
-    font-size: 2.8rem;
-    font-weight: 600;
-    color: #222;
-    background: rgba(242, 242, 242, 0.9);
-    padding: 7px 25px;
-    display: inline-block;
-    border-radius: 4px;
-     border: 2px solid black;
+        .custom-header-title {
+            font-size: 2.8rem;
+            font-weight: 600;
+            color: #222;
+            background: rgba(242, 242, 242, 0.9);
+            padding: 7px 25px;
+            display: inline-block;
+            border-radius: 4px;
+            border: 2px solid black;
+            margin-top: 60px;
+            margin-bottom: 30px;
+        }
 
-    /* NEU: mehr Abstand nach unten */
-	margin-top: 60px;
-    margin-bottom: 30px;
-}
-
-        /* Kontaktbutton oben rechts */
-        .header-contact {
+        .header-context {
             position: absolute;
             top: 15px;
             right: 25px;
             border: 2px solid white;
             background-color: black;
             color: white;
-            border-radius: 0;
             padding: 10px 26px;
-  	    font-family: "Times New Roman", serif;
             font-size: 1.05rem;
-            font-weight: 500;
             text-decoration: none;
-            z-index: 10;
         }
 
-        .header-contact:hover {
+        .header-context:hover {
             background-color: white;
             color: black;
         }
 
-        /* Pills unter dem Titel */
         .pill-row {
             display: flex;
             justify-content: center;
@@ -72,89 +80,443 @@
             flex-wrap: wrap;
         }
 
-.nav-pill {
-    font-family: "Times New Roman", serif;
-    font-size: 1rem;
-    padding: 6px 18px;
-    border-radius: 50px;
-    white-space: nowrap;
-
-    background: rgba(242, 242, 242, 0.9); /* gleiches Hellgrau wie Titelbox */
-    border: 2px solid black;              /* gleicher schwarzer Rahmen */
-    color: #222 !important;               /* dunkler Text, passend zur Box */
-
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.nav-pill:hover {
-    background: rgba(255, 255, 255, 1);   /* etwas heller beim Hover */
-}
-
-        /* ---------------- SLIDESHOW ---------------- */
-
-        .hero {
-            position: relative;
-            height: 60vh;
-            overflow: hidden;
+        .nav-pill {
+            font-size: 1.05rem;
+            padding: 6px 18px;
+            border-radius: 50px;
+            background: rgba(242, 242, 242, 0.9);
+            border: 2px solid black;
+            color: #222 !important;
+            text-decoration: none;
+            transition: 0.2s;
         }
 
-        .hero img {
+        .nav-pill:hover {
+            background: white;
+        }
+
+        .header-divider {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            animation: fade 18s infinite;
+            height: 14px;
+            background-color: #003366;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        .hero img:nth-child(2) { animation-delay: 6s; }
-        .hero img:nth-child(3) { animation-delay: 12s; }
-
-        @keyframes fade {
-            0% {opacity: 1;}
-            33% {opacity: 1;}
-            40% {opacity: 0;}
-            93% {opacity: 0;}
-            100% {opacity: 1;}
+        #map {
+            height: 500px;
+            margin-top: 50px ;
+	    margin-bottom : 15px;
+            border: 2px solid #aaa;
+            border-radius: 4px;
         }
 
-        .hero-text {
-            position: absolute;
-            bottom: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            text-shadow: 0 0 10px black;
-            text-align: center;
-        }
     </style>
 </head>
 
+
+<!-- Header --> 
+
 <body>
 
-<!-- ---------------- NAVIGATION / HEADER ---------------- -->
+ <nav class="custom-header navbar-dark">
+    <a href="hintergrund.html" class="header-context">Hintergrund</a>
 
-<nav class="custom-header navbar-dark">
-    <!-- Kontaktbutton -->
-    <a href="kontakt.html" class="header-contact">Kontakt</a>
 
-    <!-- Titel -->
-    <div class="custom-header-title">
-           Römische Spuren in Deutschland   
-    </div>
+    <a href="index.html" class="custom-header-title" style="text-decoration: none; color: inherit;">
+        Römische Spuren in Deutschland
+    </a>
 
-    <!-- Pills unter dem Titel -->
     <div class="pill-row">
-        <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
-        <a class="nav-pill" href="sl.html">Saarland</a>
-        <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
         <a class="nav-pill" href="bayern.html">Bayern</a>
+        <a class="nav-pill" href="bawue.html">Baden-Württemberg</a>
+        <a class="nav-pill" href="rlp.html">Rheinland-Pfalz</a>
     </div>
-</nav>
+ </nav>
+
+<div class="header-divider"></div>
 
 
-<!-- ---------------- EINLEITUNG ---------------- -->
+<!-- Inhalt -->
 
+<div class="container my-5">
+
+    <h1> Alpenvorland-Exkursion in Bayern</h1>
+
+    <p>
+        Im Zeitraum vom 08. bis 11. April 2024 führte die Professur der Archäologie der Römischen Provinzen der Otto-Friedrich-Universität Bamberg unter Leitung von Herrn Dr. Marcus Zagermann eine Exkursion zum Thema „Römische Fundplätze im raetischen Alpenvorland zwischen Forggensee und Kochelsee“ durch. Der folgende Bericht soll nun einen kurzen Überblick über die besuchten Orte und die errungenen Erkenntnisse zu eben diesen darstellen.
+    </p>
+
+</div>
+<div class="container my-4">
+    <h3 class="mt-5">Exkursionsablauf</h3>
+
+    <table class="table table-striped table-bordered mt-3;">
+        <thead class="table-light">
+            <tr>
+                <th scope="col">Datum</th>
+                <th scope="col">Standort</th>
+                <th scope="col">Kurzbeschreibung</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>08.04.2024</td>
+                <td>Epfach</td>
+                <td>Lorenzberg (einst römischer Besatzungsplatz) mit nahgelegenem Vicus Abodiacum.</td>
+            </tr>
+            <tr>
+                <td>09.04.2024</td>
+                <td>Oberammergau</td>
+                <td>Döttenbichl: Vermutlich Kampfhandlungsort in Verbindung des Alpenfeldzuges.</td>
+            </tr>
+            <tr>
+                <td>09.04.2024</td>
+                <td>Klais</td>
+                <td>Römische Straße mit Wagenspuren (Geleisestraße).</td>
+            </tr>
+            <tr>
+                <td>09.04.2024</td>
+                <td>Murnauer Moos</td>
+                <td>Ursprünglich Moosberg mit römischen Strukturen heute nur noch ein See.</td>
+            </tr>
+            <tr>
+                <td>10.04.2024</td>
+                <td>Nähe Bernbeuren</td>
+                <td>Römische Siedlung auf dem Auerberg mit Wallanlage.</td>
+            </tr>
+	    <tr>
+                <td>10.04.2024</td>
+                <td>Forggensee</td>
+                <td>Brandopferplatz an dem zahlreiche Funde entdeckt wurden.</td>
+            </tr>
+	    <tr>
+                <td>10.04.2024</td>
+                <td>Kohlhunden</td>
+                <td>Überreste des Badegebäudes der römsichen Villa.</td>
+            </tr>
+	    <tr>
+                <td>10.04.2024</td>
+                <td>Tegelberg-Seilbahn von Schwangau</td>
+                <td>Überreste des Badegebäudes der Villa mit ursprünglich herausragender Wandmalerei.</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+<h2>Überblickskarte der besuchten Standorte</h2>
+
+ <div id="map"></div>
+
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<!-- Karte initialisieren -->
+<script>
+    var map = L.map('map').setView([47.7, 10.8], 8);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+    }).addTo(map);
+
+
+    L.marker([47.914452, 10.915315]).addTo(map)
+        .bindPopup('<b>Lorenzberg bei Epfach</b>');
+
+    L.marker([47.912236, 10.910215]).addTo(map)
+        .bindPopup('<b>Nymphäum des Vicus in Epfach</b>');
+
+    L.marker([47.909813, 10.909857]).addTo(map)
+        .bindPopup('<b>Museum Abodiacum in Epfach</b>');
+
+    L.marker([47.587556, 11.069333]).addTo(map)
+        .bindPopup('<b>Döttenbichl</b>');
+
+    L.marker([47.598709, 11.063052]).addTo(map)
+  	.bindPopup('<b>Oberammergau Museum – Funde vom Döttenbichl</b>');
+
+    L.marker([47.479214, 11.239273]).addTo(map)
+        .bindPopup('<b>Klais – Geleisestraße</b>');
+
+    L.marker([47.646095, 11.196129]).addTo(map)
+        .bindPopup('<b>Murnauer Moos – ehemaliger Moosberg</b>');
+
+    L.marker([47.735852, 10.736509]).addTo(map)
+  	.bindPopup('<b>Auerberg</b>');
+
+    L.marker([47.737774, 10.775958]).addTo(map)
+  	.bindPopup('<b>Auerbergmuseum in Bernbeuren</b>');
+
+    L.marker([47.616961, 10.739602]).addTo(map)
+ 	.bindPopup('<b>Forggensee – Brandopferplatz (genaue Lage unbekannt)</b>');
+
+    L.marker([47.75097, 10.628306]).addTo(map)
+  	.bindPopup('<b>Villa Kohlhunden</b>');
+
+    L.marker([47.568, 10.756617]).addTo(map)
+ 	.bindPopup('<b>Villa Schwangau</b>');
+    
+</script>
+
+<p> Für die Standortinfo bitte auf den jeweiligen Marker klicken!</p>
+
+</div>
+<div class="container my-5">
+<h2> Die Exkursion im Detail </h2>
+    <p>
+      Am Montag, den 08. April 2024 ging es morgens um 8.00 Uhr von Bamberg aus Richtung bayerisches Alpenvorland. Um die Mittagszeit erreichten wir unseren ersten Stopp - den Lorenzberg - der etwas außerhalb des Ortes Epfach liegt. Der Lorenzberg, bei dem es sich eher um einen kleinen Hügel handelt als um einen eigentlichen Berg, wurde schon 14. v. Chr. unter dem damaligen Alpenfeldzug besetzt. Aufgegeben wurde der Standort erst Ende des 4. Jh., heute steht auf dem Hügel die St. Lorenz-Kapelle. Reste aus der römischen Zeit sind auf dem Lorenzberg selbst nicht obertätig zu erkennen. Unweit entfernt befand sich der vicus Abodiacum, von welchem heute noch Reste eines Nymphäums anzutreffen sind. Außerdem befindet sich unweit davon ein kleines Ein-Raum-Museum über die Geschichte des Lorenzberges.  
+    </p>
+</div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mx-auto text-center">
+            <figure>
+                <img src="img/Lorenzberg.jpeg"
+                     class="img-fluid rounded"
+                     style="max-height: 500px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Blick auf den Lorenzberg 
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-6 text-center">
+            <figure>
+                <img src="img/döttenbichl.jpeg" class="img-fluid rounded"
+     style=" max-height: 590px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                     Auf dem Rundweg über den Döttenbichl
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <p>
+                Am Dienstagmorgen ging es los zur Besichtigung des Döttenbichls, welcher zur Gemeinde Oberammergau gehört und an einer Engstelle zwischen den Bergen Kofel und Laber im Ammertal liegt. Wir parkten auf dem nahegelegenen Wanderparkplatz und gingen von dort aus über einen kurzen Waldweg zum Fuße des Hügels hin. Der Startpunkt des Rundweges über den Döttenbichl markiert eine überdimensional große künstlerische Holznachbildung des 1901 auf dem Hügel gefundenen silberverzierten Dolches. Der Döttenbichl an sich ist stark bewaldet, durch den Wanderweg aber gut für Besucher zugänglich. Die Erforschung erfolgte bedingt durch die örtlichen Gegebenheiten hauptsächlich durch Detektorarbeiten und das Freilegen kleinerer Ausgrabungsflächen. Bis dato wurden dabei jedoch noch keine antiken Befunde erschlossen, das Fundspektrum ist hingegen sehr reich. Es handelt sich dabei um sowohl ziviles als auch militärisches Fundmaterial, welches aber nur in geringem Maße in situ geborgen wurde. Vermutet wird, dass es in Verbindung des Alpenfeldzuges auf dem Döttenbichl zu Kampfhandlungen kam. Anschließend fuhren wir weiter zum Museum Oberammergau, in welchem sich eine kleine Ausstellung mit der römischen Geschichte des Ortes befasst und einige Kopien und Originale der Funde des Döttenbichls zeigt.  
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-4 text-center mb-4 mb-md-0">
+            <figure>
+                <img src="img/klais_geleisestraße_hell.jpeg"
+                     class="img-fluid rounded"
+                     style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Startpunkt des Weges entlang der Geleisestraße
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-4">
+            <p>
+                Nach einer kurzen Mittagspause fuhren wir weiter nach Klais. Dort besichtigten wir die sogenannte Geleisestraße, eine römische Straße, die im Wald nahe der Ortschaft liegt und recht schmal ist. Vor allem die im Fels ersichtlichen (eingetieften) Wagenspuren waren hervorragend zu erkennen.
+            </p>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <figure>
+                <img src="img/klais_geleisestraße.jpeg"
+                     class="img-fluid rounded"
+                     style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    In den Fels eingetiefte Wagenspuren 
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container my-5">
+    <p>
+      Weiter ging es dann zum Murnauer Moos, wo wir zunächst den Fundort der Eschenloher Straße besichtigen wollten. Doch leider gelangten wir nicht zu diesem Standort, da das Gebiet weitläufig aufgrund von Wiesenbrütern für Besucherverkehr gesperrt war. Unweit entfernt konnten wir jedoch zumindest zum Moosberg. Von besonderer Bedeutung an diesem Fundplatz ist, dass der Moosberg an sich nicht mehr existiert. Im 20. Jh. wurde der Berg industriell zur Gewinnung von Glaukontiquarz abgebaut, sodass das heutige Niveau sogar niedriger als das Murnauer Moos selbst liegt. Zu sehen ist heute nur ein See, der jetzt anstelle des Moosberges zu finden ist. Vor seiner Zerstörung konnte jedoch zumindest ein Teil des Berges archäologisch erforscht werden. Die Befundsituation war ursprünglich sehr gut, so waren noch ganze Mauern erhalten und auch einige Funde konnten geborgen werden. Durch die gänzliche Zerstörung ohne weitgehende Aufnahme der archäologischen Strukturen werden aber einige Forschungsfragen, die die Besiedelung des Moosberges betreffen, wohl nie geklärt werden.
+    </p>
+</div>
+
+    <div class="row mt-4">
+        <div class="col-md-6 mx-auto text-center">
+            <figure>
+                <img src="img/moosberg_see.jpeg"
+                     class="img-fluid rounded"
+                     style="max-height: 500px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    See oberhalb des einstigen Moosberges  
+                </figcaption>
+            </figure>
+        </div>
+    </div>
+
+
+<div class="container my-5">
+    <p>
+     Am Mittwochmorgen ging es zunächst zum Auerberg, welcher zum größten Teil zur Gemeinde Bernbeuren gehört und ein 1055m hohes Bergmassiv ist. Ich selbst hatte die Führung inne und ging mit der Gruppe die beiden „Römer-Rundwege“ entlang. Zuerst den nördlichen Rundweg, dieser startet am Ostplateau des Auerberges, auf dem zwei Gebäude gefunden wurden. Beide gehören wohl zu einer militärischen fabrica. Von dort aus ging es dann zum Westplateau, auf dem mehrere Streifenhäuser und Wirtschaftsgebäude gefunden wurden. Obertätig waren die Strukturen bei der Führung nicht sichtbar, da die Grabungsschnitte alle am Ende der Ausgrabungen wieder zugeschüttet wurden. Zu sehen waren jedoch die Terrassierung des Geländes und teilweise schemenhaft auch der Wall, der die Siedlung umgab. Der zweite Rundweg des Auerberges führte nun konkreter am Wall vorbei. Am Ende der Führung gingen wir noch hoch auf die Aussichtsplattform der St. Georg Kirche, die den Auerberg bekrönt. Durch das mäßige Wetter wurde uns leider ein Weitblick verwehrt, durch den Nebel konnten wir nur etwa 200 m. weit sehen, was uns aber zumindest einen Überblick über das Gelände des Auerberges ermöglichte. Anschließend ging es zum Auerberg-Museum in Bernbeuren, in dem es neben ausgewählten Fundstücken auch eine filmische Visualisierung des Standortes gab.
+    </p>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/auerberg_grenzwall2.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Leicht im Gelände erkennbarer Wall mit Graben 
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/auerberg_ostplateau.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Blick auf das Ostplateau mit sichtbarer Terrassierung  
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row align-items-center">
+
+        <div class="col-md-6">
+            <p>
+                Als nächsten Ort besuchten wir den Forggensee. Zunächst fuhren wir zur südlichen Seite des Sees, wechselten aber nach kurzer Orientierung noch einmal den Standort, näher zum Fundplatz hin. Den Brandopferplatz, konnten wir leider jedoch nicht verorten. Das Besondere an diesem Standort ist aber vor allem die hohe Anzahl an Funden, die bei der Erforschung geborgen wurden.
+            </p>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <figure>
+                <img src="img/forggensee.jpeg" class="img-fluid rounded"
+                     style="max-height: 350px; object-fit: cover;">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                    Nahe des Standortes des Brandopferplatzes am Forggensee 
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+    <p>
+     Als nächsten fuhren wir die Villa Kohlhunden an, welche 2002 zufällig beim Bau der Umgehungsstraße entdeckt wurde. Das Badegebäude der Villa wurde im Anschluss an die Rettungsgrabungen dann mit einem Schutzbau umbaut bzw. überdacht, weswegen wir dieses bestaunen konnten. Anschließend ging es von dort weiter zum letzten Fundplatz des Geländeseminars, der Villa Schwangau, die ganz in der Nähe des Schlosses Neuschwanstein liegt. Berühmt ist diese Villa für ihre dort im Badegebäude gefundenen Wandmalereien, die vor Ort heute jedoch nur als Bilder zu sehen sind. Der Schutzbau, über den noch sehr gut erhaltenen Strukturen befindet sich unmittelbar bei der Tegelberg-Seilbahn von Schwangau und erscheint mit seiner kleinen Größe und dem Bau aus Beton und Glas recht unscheinbar. Neben dem Bad konnten wir uns auch unweit entfernt die Darre der Villa ansehen. Die originalen Strukturen wurde dort mit Beton und großen Steinen aufgemauert, da der Beton aber bereits an einigen Stellen zerfiel, liegen Teile des Originals nun gänzlich ungeschützt frei. Insgesamt schien das ganze präsentierte Villengelände eher mäßig aufbereitet und geschützt, was aber nur eine subjektive Meinung meiner selbst dazu darstellt. Am Donnerstagmorgen ging es auf direktem Wege zurück nach Bamberg, wo wir um etwa 14 Uhr voller neu gewonnener Eindrücke ankamen.
+    </p>
+</div>
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/kohlhunden_villa.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                   Erhaltene (teilweise restaurierte) Strukturen des Badegebäudes innerhalb des Schutzbaus  
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="col-md-6">
+            <figure class="text-center">
+                <img src="img/schwangau_villa2.jpeg" class="img-fluid rounded">
+                <figcaption style="font-size: 0.9rem; margin-top: 6px;">
+                       Erhaltene Strukturen des Bades der Villa innerhalb des Schutzbaus  
+                </figcaption>
+            </figure>
+        </div>
+
+    </div>
+</div>
+
+<div class="container my-5">
+
+ <h4> Weitere Informationen gibt es hier (externe Seiten):</h4>
+  <ul>
+    <li><a href="https://www.denklingen.de/kultur-soziales/museum/">Museum Abodiacum Epfach</a></li>
+    <li><a href="https://www.oberammergaumuseum.de/de">Museum Oberammergau</a></li>
+    <li><a href="https://www.auerbergmuseum.de/museum">Auerbergmuseum. Im Kiebelehaus</a></li>
+
+  </ul>
+</div>
+
+
+<!-- ---------------- FOOTER ---------------- -->
+
+<!-- Footer -->
+  
+<footer class="py-3 mt-5" style="background-color:#003366; color:white;">
+  <div class="container">
+    <div class="row align-items-center text-white">
+
+      <!-- MITTLERE SPALTE (jetzt links) -->
+      <div class="col-md-4 text-center mb-3 mb-md-0" style="margin-top: 0;  padding-rigt: 400px;">
+        <h5 class="fw-semibold" style="font-size: 1.25rem; margin: 0 ">
+          Rechtliches
+        </h5>
+
+        <a href="imprint.html" class="text-white"
+           style="text-decoration:none; font-size:1.1rem; margin: 0 0 6px 0; white-space: nowrap;">
+          Impressum & Datenschutz
+        </a>
+      </div>
+
+      <!-- LINKE SPALTE (jetzt in der Mitte) -->
+      <div class="col-md-4 text-center">
+        <h5 class="fw-semibold" style="font-size: 1.3rem; margin: 0;">
+          Römische Spuren in Deutschland
+        </h5>
+
+        <h6 style="font-size: 1.1rem; margin: 4px;">
+          Ein digitaler Exkursionsführer </br> zu römischen Fundplätzen
+        </h6>
+
+        <span style="font-size: 0.9rem;">
+          © 2026 – Alle Rechte vorbehalten.
+        </span>
+      </div>
+
+      <!-- Rechte Spalte bleibt unverändert -->
+      <div class="col-md-4 text-md-end text-center" style="margin-top: 0;">
+
+        <div style="display: inline-flex; align-items: center; gap: 12px;">
+
+          <div style="text-align: center;">
+
+          <div style="font-size: 2.2rem; line-height: 1;">
+            🦊
+          </div>
+            <div style="font-size: 1.15rem; margin-bottom: 6px;">
+             Fragen oder Anmerkungen?
+            </div>
+
+	<div style="text-align: center;">
+	   Kontakt: tfuchs17(at)smail.uni-koeln.de
+	</div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</footer>
+
+</body>
+</html><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
